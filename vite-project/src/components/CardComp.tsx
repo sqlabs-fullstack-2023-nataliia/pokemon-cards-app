@@ -3,9 +3,14 @@ import { Col, Card, Container, Row, Button, CardText, Image, Modal } from "react
 
 const CardComp = (props: any) => {
 
+    const [show, setShow] = React.useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         <>
-            <Col style={{ marginBottom: '20px' }}>
+            <Col key={props.item.id} style={{ marginBottom: '20px' }}>
                 <Card style={{ width: '20rem', padding: '15px', marginLeft: 'auto', marginRight: 'auto', borderRadius: '2rem', background: '#E6E6FA', opacity: '85%' }}>
                     <Container>
                         <Row style={{ height: '50px' }}>
@@ -43,12 +48,17 @@ const CardComp = (props: any) => {
 
 
                         <div className="d-grid gap-2">
-                            <Button variant="success" href={props.item.images.large} size='lg'>Show Card</Button>
+                            <Button variant="success" onClick={handleShow} size='lg'>Show Card</Button>
                         </div>
 
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Body>
+                                <Image src={props.item.images.large} fluid />
+                            </Modal.Body>
+                        </Modal>
 
 
-                        <CardText style={{ position: 'relative', top: '30px', fontWeight: 'bold', fontSize: '20px' }}>{props.item.set.ptcgoCode} <span style={{ fontWeight: 'normal', fontSize: '15px' }}>{props.item.set.releaseDate}</span></CardText>
+                        <CardText style={{ position: 'relative', top: '20px', fontWeight: 'bold', fontSize: '20px' }}>{props.item.set.ptcgoCode} <span style={{ fontWeight: 'normal', fontSize: '15px' }}>{props.item.set.releaseDate}</span></CardText>
                     </Card.Body>
                 </Card>
 
